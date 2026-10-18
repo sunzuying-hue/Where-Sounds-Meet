@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f5eb" />
+    <title>听见之间 · Between Sounds</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <section class="screen start-screen is-active" id="startScreen" aria-labelledby="startTitle">
+        <div class="paper-grain" aria-hidden="true"></div>
+        <div class="start-map" aria-hidden="true"></div>
+        <header class="start-mark">
+          <span>Between Sounds</span>
+          <span>Fengmen Hengjie · Suzhou</span>
+        </header>
+        <div class="start-content start-content--prompt" id="startPrompt">
+          <p>请先听一听这条街的声音</p>
+          <button class="text-entry" id="listenButton" type="button">进入葑门横街</button>
+        </div>
+        <div class="start-content start-content--title" id="startTitlePanel" hidden>
+          <p class="start-kicker">一条街，十段日常声音</p>
+          <h1 id="startTitle">听见之间</h1>
+          <p class="start-subtitle">从田野录音出发，重新翻阅葑门横街的生活声景。</p>
+          <button class="triangle-entry" id="enterButton" type="button" aria-label="进入声音地图" hidden>
+            <span aria-hidden="true"></span>
+          </button>
+          <p class="timer-note" id="timerNote">听五秒，再进入</p>
+        </div>
+        <p class="start-index">Suzhou field notes / 2026</p>
+      </section>
+
+      <section class="transition-screen" id="transitionScreen" aria-live="polite" hidden>
+        <p>开启一场关于葑门横街的交互式声音实验。</p>
+      </section>
+
+      <section class="screen soundmap-screen" id="soundmapScreen" aria-label="声音地图" hidden>
+        <header class="topbar">
+          <button class="brand" id="brandButton" type="button" aria-label="返回开屏">
+            <strong>听见之间</strong><span>Between Sounds</span>
+          </button>
+          <div class="category-key" aria-label="声音分类图例">
+            <span class="legend-item"><i class="shape shape--square"></i><b>机械音</b></span>
+            <span class="legend-item"><i class="shape shape--triangle"></i><b>人声</b></span>
+            <span class="legend-item"><i class="shape shape--drop"></i><b>烹饪声</b></span>
+            <span class="legend-item"><i class="shape shape--sun"></i><b>环境音</b></span>
+          </div>
+          <nav class="mode-switch" aria-label="聆听模式">
+            <button class="mode-button is-active" type="button" data-mode="single">Single</button>
+            <button class="mode-button" type="button" data-mode="mix">Mix</button>
+          </nav>
+        </header>
+
+        <div class="workspace">
+          <section class="map-column" aria-label="葑门横街声音地图">
+            <div class="map-meta">
+              <p id="mapModeLabel">单独聆听</p>
+              <p>葑门横街田野录音 · 10 个声源</p>
+            </div>
+            <div class="map-frame" id="mapFrame">
+              <div class="map-sheet" id="mapSheet" aria-label="声音节点分布图"></div>
+              <div class="node-layer" id="nodeLayer"></div>
+              <p class="map-guide" id="mapGuide">点击地图上的发光节点，听见一段声音。</p>
+            </div>
+          </section>
+
+          <aside class="notes-column" id="notesColumn">
+            <section class="single-panel" id="singlePanel">
+              <div class="panel-heading">
+                <span>田野手账</span>
+                <span id="entryNumber">Field note —</span>
+              </div>
+              <article class="field-note" id="fieldNote">
+                <div class="field-placeholder" id="fieldIllustration" aria-hidden="true">
+                  <span>选择一处声音</span>
+                </div>
+                <div class="field-copy">
+                  <p class="field-category" id="fieldCategory">尚未选择节点</p>
+                  <h2 id="fieldTitle">翻开它的田野记录</h2>
+                  <p id="fieldText">选择一处声音，翻开它的田野记录。</p>
+                </div>
+              </article>
+              <div class="playback-line" id="singleStatus" aria-live="polite">
+                <span></span><p>等待聆听</p>
+              </div>
+            </section>
+
+            <section class="mix-panel" id="mixPanel" hidden>
+              <div class="panel-heading">
+                <span>自由混音</span>
+                <span>Live layers</span>
+              </div>
+              <div class="mix-intro">
+                <h2>重新组合这条街</h2>
+                <p id="mixGuide">选择地图上的声音，开始组合。</p>
+              </div>
+              <div class="mixer-list" id="mixerList"></div>
+              <button class="result-entry" id="resultButton" type="button">生成我的 Soundmap <span>→</span></button>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section class="screen result-screen" id="resultScreen" aria-labelledby="resultTitle" hidden>
+        <header class="result-header">
+          <div><p>听见之间</p><span>Personal Soundmap</span></div>
+          <button id="backToMap" type="button">返回 Mix</button>
+        </header>
+        <div class="result-layout">
+          <section class="postcard" aria-label="个人声音地图展示区域">
+            <div class="postcard-map" id="postcardMap"></div>
+            <div class="postcard-title"><span>葑门横街</span><strong id="resultTitle">我的声音地图</strong></div>
+            <p>[待确认：个人 Soundmap 视觉生成规则]</p>
+          </section>
+          <aside class="result-notes">
+            <p class="result-date" id="resultDate"></p>
+            <h2>这一次，<br />你听见了什么？</h2>
+            <div class="result-list" id="resultList"></div>
+            <section class="result-placeholder">
+              <h3>个人混音回放</h3>
+              <p>[待实现：最终混音回放]</p>
+            </section>
+            <section class="result-placeholder">
+              <h3>保存这张声音明信片</h3>
+              <p>[待实现：混音音频导出与下载]</p>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <div class="listen-cursor" id="listenCursor" aria-hidden="true">
+      <span class="listen-cursor__ring"></span>
+      <span class="listen-cursor__label">listen</span>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

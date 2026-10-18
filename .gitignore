@@ -1,0 +1,21 @@
+.taste-skill/
+screenshots/
+
+# Local-only development and outdated handoff notes
+server.mjs
+README.md
+MISSING-ASSETS.md
+
+# Superseded interface exports
+assets/interface/start.jpg
+assets/interface/mix.jpg
+assets/interface/soundmap-single-dark.jpg
+assets/interface/soundmap-mix-replacement.png
+
+# Superseded audio exports; keep the ambience file and formal masters
+assets/sounds/*.wav
+!assets/sounds/莫邪路(1).wav
+
+# Operating-system files
+.DS_Store
+Thumbs.db
