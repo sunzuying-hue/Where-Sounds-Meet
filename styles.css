@@ -48,16 +48,25 @@ button:active { opacity:.72; }
   -webkit-mask-image:none;
   mask-image:none;
 }
-.start-screen::before { content:""; position:absolute; z-index:1; inset:0 auto 0 0; width:60%; background:linear-gradient(90deg,var(--paper) 0%,var(--paper) 66.66%,rgba(248,245,235,.96) 72%,rgba(248,245,235,.8) 80%,rgba(248,245,235,.46) 90%,transparent 100%); }
+.start-map-video {
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:var(--paper);
+}
+.start-screen::before { content:""; position:absolute; z-index:1; inset:0 auto 0 0; width:54%; background:linear-gradient(90deg,var(--paper) 0%,var(--paper) 54%,rgba(248,245,235,.94) 66%,rgba(248,245,235,.68) 80%,rgba(248,245,235,.28) 92%,transparent 100%); }
 .start-mark { position:absolute; inset:30px 42px auto; display:flex; justify-content:space-between; font: 11px/1.2 Arial,sans-serif; letter-spacing:.13em; text-transform:uppercase; z-index:2; }
-.start-content { position:absolute; z-index:2; left:10vw; top:50%; transform:translateY(-50%); }
+.start-content { position:absolute; z-index:2; left:8.8vw; top:50%; transform:translateY(-50%); }
 .start-content--prompt p { margin:0 0 26px; font-size:17px; }
-.text-entry { border:0; border-bottom:1px solid currentColor; background:none; padding:0 0 7px; font-size:32px; cursor:pointer; transition:opacity .2s; }
+.text-entry { display:block; border:0; border-bottom:1px solid currentColor; background:none; margin-top:42px; padding:0 0 7px; font-size:28px; cursor:pointer; transition:opacity .2s; }
 .text-entry:hover { opacity:.55; }
-.start-content--title { width:52vw; }
-.start-kicker { margin:0 0 22px; font: 13px/1.4 Arial,sans-serif; letter-spacing:.12em; }
-.start-content h1 { font-size:clamp(88px,10vw,162px); line-height:.9; font-weight:400; letter-spacing:-.08em; margin:0; white-space:nowrap; }
-.start-subtitle { margin:28px 0 0 5px; font-size:18px; line-height:1.8; }
+.start-content--title { width:46vw; }
+.start-kicker { margin:0 0 19px; font: 12px/1.4 Arial,sans-serif; letter-spacing:.12em; }
+.start-content h1 { font-size:clamp(76px,8.8vw,142px); line-height:.9; font-weight:400; letter-spacing:-.08em; margin:0; white-space:nowrap; }
+.start-subtitle { margin:24px 0 0 4px; font-size:16px; line-height:1.8; }
 .triangle-entry { width:74px; height:74px; border:0; background:transparent; padding:0; margin-top:64px; cursor:pointer; animation:soft-in .7s var(--ease); }
 .triangle-entry span { display:block; width:0; height:0; border-top:22px solid transparent; border-bottom:22px solid transparent; border-left:34px solid var(--ink); transition:transform .25s var(--ease); }
 .triangle-entry:hover span { transform:translateX(7px); }

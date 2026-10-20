@@ -1,14 +1,14 @@
 const sounds = [
-  { id:'call', name:'打电话', category:'voice', categoryName:'人声', color:'#E3C27C', x:73, y:88, positions:{ single:[19.47,59.44], mix:[18.29,58.32] }, file:'打电话.wav', illustration:'assets/illustrations/call.mp4', note:'走到葑门横街的尾端，街道慢慢接向公园和马路。一个大哥一手拎着菜一手在给家里打电话。电话里的内容听不完整，人声只是短暂地从街道里浮出来，又重新混回周围的声音。' },
-  { id:'pest', name:'粘鼠板 / 蟑螂药', category:'voice', categoryName:'人声', color:'#E3C27C', x:26, y:95, positions:{ single:[12.43,15.93], mix:[11.59,15.17] }, file:'粘鼠板蟑螂药(1).wav', illustration:'assets/illustrations/pest.png', note:'街上的叫卖并不总是在介绍眼前能看见的东西。“粘鼠板、蟑螂药”这样直接的声音反复穿过街道，在谈话、脚步和摊贩之间出现。走远以后，摊位已经看不清了，声音却还留在后面。' },
-  { id:'chestnut', name:'叫卖栗子', category:'voice', categoryName:'人声', color:'#E3C27C', x:57, y:47, positions:{ single:[62.96,44.07], mix:[62.07,43.14] }, file:'叫卖栗子.wav', illustration:'assets/illustrations/chestnut.png', note:'有时候，是先听见声音，才开始寻找它从哪里来。叫卖声从人群和店铺之间穿出来，一遍又一遍。它不像背景里的交谈那么模糊，而是在嘈杂的街道中留下一个很明确的位置。' },
+  { id:'call', name:'打电话', category:'voice', categoryName:'人声', color:'#E3C27C', x:73, y:88, positions:{ single:[19.47,59.44], mix:[18.29,58.32] }, file:'打电话.wav', illustration:'assets/videos/call.mp4', note:'走到葑门横街的尾端，街道慢慢接向公园和马路。一个大哥一手拎着菜一手在给家里打电话。电话里的内容听不完整，人声只是短暂地从街道里浮出来，又重新混回周围的声音。' },
+  { id:'pest', name:'粘鼠板 / 蟑螂药', category:'voice', categoryName:'人声', color:'#E3C27C', x:26, y:95, positions:{ single:[12.43,15.93], mix:[11.59,15.17] }, file:'粘鼠板蟑螂药(1).wav', illustration:'assets/videos/pest.mp4', note:'街上的叫卖并不总是在介绍眼前能看见的东西。“粘鼠板、蟑螂药”这样直接的声音反复穿过街道，在谈话、脚步和摊贩之间出现。走远以后，摊位已经看不清了，声音却还留在后面。' },
+  { id:'chestnut', name:'叫卖栗子', category:'voice', categoryName:'人声', color:'#E3C27C', x:57, y:47, positions:{ single:[62.96,44.07], mix:[62.07,43.14] }, file:'叫卖栗子.wav', illustration:'assets/videos/chestnut.mp4', note:'有时候，是先听见声音，才开始寻找它从哪里来。叫卖声从人群和店铺之间穿出来，一遍又一遍。它不像背景里的交谈那么模糊，而是在嘈杂的街道中留下一个很明确的位置。' },
   { id:'cart', name:'拖车', category:'mechanical', categoryName:'机械音', color:'#839EAB', x:49, y:75, positions:{ single:[33.45,39.07], mix:[32.80,38.39] }, file:'拖车.wav', illustration:'assets/illustrations/cart.png', note:'葑门横街靠近出口的地方，人不断从街里向外走。阿姨们拉着小推车从身边经过，轮子压过不同的地面，发出连续又不完全相同的摩擦和震动。它很普通，却几乎一直伴随着这一段路。' },
-  { id:'sweep', name:'扫地', category:'mechanical', categoryName:'机械音', color:'#839EAB', x:34, y:26, positions:{ single:[85.90,23.89], mix:[85.98,23.22] }, file:'扫地.wav', illustration:'assets/illustrations/sweep.png', note:'扫帚擦过地面的声音很轻，轻到走路时很容易忽略。真正停下来以后，才会发现它有自己的节奏：靠近、划过、停顿，再重新开始。街道并不是一直在“发生事情”，也有人只是在整理眼前的一小块地方。' },
-  { id:'fitness', name:'运动器材', category:'mechanical', categoryName:'机械音', color:'#839EAB', x:29, y:18, positions:{ single:[94.98,19.63], mix:[94.88,19.01] }, file:'运动器材.wav', illustration:'assets/illustrations/fitness.png', note:'街道中段忽然宽了很多，一群老人聚在那里聊天。我们原本以为那里正在卖什么，走近才发现，他们只是待在一起。再往出口走，公园里的运动器材发出金属摩擦和碰撞声，人的动作通过机器被留了下来。' },
-  { id:'fry', name:'油炸', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:40, y:46, positions:{ single:[64.87,30.37], mix:[64.27,29.80] }, file:'油炸AI降噪.wav', illustration:'assets/illustrations/fry.png', note:'后来街上也不断遇见糕点和熟食店。路过一家卖萝卜丝饼的小店，油锅里金黄的饼翻动伴随着劈里啪啦的优化油炸的油花迸溅，声音没有叫卖那么突出，却让人很容易意识到：这里正在准备可以被吃掉的东西。' },
-  { id:'meat', name:'剁肉', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:23, y:56, positions:{ single:[50.06,50.19], mix:[49.27,49.18] }, file:'肉铺 降噪1.0.wav', illustration:'assets/illustrations/meat.png', note:'走进街里以后，声音一下子变得密集。肉铺里不断传来剁肉声，旁边有人卖菜、问价、讨价还价。一下、一下的撞击非常清楚，却又很快被人声覆盖。那一刻很难只听见一种声音。' },
-  { id:'oxygen', name:'打氧', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:62, y:59, positions:{ single:[54.60,13.15], mix:[53.90,12.80] }, file:'打氧.wav', illustration:'assets/illustrations/oxygen.png', note:'左拐进入室内菜市场，鱼和虾的摊位集中在一起。氧气机一直工作，细密的气泡声和机器声形成一种持续的底音。顾客和老板对话，我们站在那里看了一会儿，还讨论了一下想不想吃虾。' },
-  { id:'salt', name:'敲盐', category:'ambient', categoryName:'环境音', color:'#C57550', x:43, y:55, positions:{ single:[53.64,31.48], mix:[53.05,30.90] }, file:'敲盐(1).wav', illustration:'assets/illustrations/salt.png', note:'一家店铺老板蹲在摊子门口，敲打一块固体食用盐，在一片连续的人声和交通声里，敲击反而显得格外明确。声音短、硬、有间隔，每一次出现都像在复杂的声景里划出一个小小的边界。' }
+  { id:'sweep', name:'扫地', category:'mechanical', categoryName:'机械音', color:'#839EAB', x:34, y:26, positions:{ single:[85.90,23.89], mix:[85.98,23.22] }, file:'扫地.wav', illustration:'assets/videos/sweep.mp4', note:'扫帚擦过地面的声音很轻，轻到走路时很容易忽略。真正停下来以后，才会发现它有自己的节奏：靠近、划过、停顿，再重新开始。街道并不是一直在“发生事情”，也有人只是在整理眼前的一小块地方。' },
+  { id:'fitness', name:'运动器材', category:'mechanical', categoryName:'机械音', color:'#839EAB', x:29, y:18, positions:{ single:[94.98,19.63], mix:[94.88,19.01] }, file:'运动器材.wav', illustration:'assets/videos/fitness.mp4', note:'街道中段忽然宽了很多，一群老人聚在那里聊天。我们原本以为那里正在卖什么，走近才发现，他们只是待在一起。再往出口走，公园里的运动器材发出金属摩擦和碰撞声，人的动作通过机器被留了下来。' },
+  { id:'fry', name:'油炸', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:40, y:46, positions:{ single:[64.87,30.37], mix:[64.27,29.80] }, file:'油炸AI降噪.wav', illustration:'assets/videos/fry.mp4', note:'后来街上也不断遇见糕点和熟食店。路过一家卖萝卜丝饼的小店，油锅里金黄的饼翻动伴随着劈里啪啦的优化油炸的油花迸溅，声音没有叫卖那么突出，却让人很容易意识到：这里正在准备可以被吃掉的东西。' },
+  { id:'meat', name:'剁肉', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:23, y:56, positions:{ single:[50.06,50.19], mix:[49.27,49.18] }, file:'肉铺 降噪1.0.wav', illustration:'assets/videos/meat.mp4', note:'走进街里以后，声音一下子变得密集。肉铺里不断传来剁肉声，旁边有人卖菜、问价、讨价还价。一下、一下的撞击非常清楚，却又很快被人声覆盖。那一刻很难只听见一种声音。' },
+  { id:'oxygen', name:'打氧', category:'cooking', categoryName:'烹饪声', color:'#85976A', x:62, y:59, positions:{ single:[54.60,13.15], mix:[53.90,12.80] }, file:'打氧.wav', illustration:'assets/videos/oxygen.mp4', note:'左拐进入室内菜市场，鱼和虾的摊位集中在一起。氧气机一直工作，细密的气泡声和机器声形成一种持续的底音。顾客和老板对话，我们站在那里看了一会儿，还讨论了一下想不想吃虾。' },
+  { id:'salt', name:'敲盐', category:'ambient', categoryName:'环境音', color:'#C57550', x:43, y:55, positions:{ single:[53.64,31.48], mix:[53.05,30.90] }, file:'敲盐(1).wav', illustration:'assets/videos/salt.mp4', note:'一家店铺老板蹲在摊子门口，敲打一块固体食用盐，在一片连续的人声和交通声里，敲击反而显得格外明确。声音短、硬、有间隔，每一次出现都像在复杂的声景里划出一个小小的边界。' }
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -115,6 +115,7 @@ function buildMixer(){
 
 function playSingle(sound,index){
   stopSingle();
+  $('#fieldIllustration video')?.pause();
   const audio=new Audio(audioPath(sound)); audio.preload='auto';
   state.singleAudio=audio; state.singleId=sound.id; nodes.get(sound.id).classList.add('is-playing','is-single-playing');
   const copy=$('.field-copy');
@@ -178,10 +179,17 @@ function showScreen(id){
 }
 
 function startExperience(){
-  $('#startPrompt').hidden=true; $('#startTitlePanel').hidden=false;
+  const video=$('#startMapVideo');
+  $('#listenButton').hidden=true;
   const ambience=new Audio('assets/sounds/%E8%8E%AB%E9%82%AA%E8%B7%AF(1).wav'); ambience.loop=true; ambience.id='ambienceAudio';
   document.body.appendChild(ambience); ambience.play().catch(()=>{});
-  setTimeout(()=>{ $('#enterButton').hidden=false; $('#timerNote').textContent='可以进入了'; },5000);
+  const continueStart=()=>{
+    video.pause(); $('#enterButton').hidden=false; $('#timerNote').textContent='可以进入了';
+  };
+  video.currentTime=0;
+  video.addEventListener('ended',continueStart,{once:true});
+  video.addEventListener('error',continueStart,{once:true});
+  video.play().catch(continueStart);
 }
 function enterMap(){
   const ambience=$('#ambienceAudio'); if(ambience){ ambience.pause(); ambience.remove(); }

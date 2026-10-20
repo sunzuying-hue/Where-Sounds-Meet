@@ -12,22 +12,22 @@
       <section class="screen start-screen is-active" id="startScreen" aria-labelledby="startTitle">
         <div class="paper-grain" aria-hidden="true"></div>
         <div class="start-map" aria-hidden="true"></div>
+        <video class="start-map-video" id="startMapVideo" muted playsinline preload="auto" aria-hidden="true">
+          <source src="assets/videos/start-map-animation.mp4" type="video/mp4" />
+        </video>
         <header class="start-mark">
           <span>Between Sounds</span>
           <span>Fengmen Hengjie · Suzhou</span>
         </header>
-        <div class="start-content start-content--prompt" id="startPrompt">
-          <p>请先听一听这条街的声音</p>
-          <button class="text-entry" id="listenButton" type="button">进入葑门横街</button>
-        </div>
-        <div class="start-content start-content--title" id="startTitlePanel" hidden>
+        <div class="start-content start-content--title" id="startTitlePanel">
           <p class="start-kicker">一条街，十段日常声音</p>
           <h1 id="startTitle">听见之间</h1>
           <p class="start-subtitle">从田野录音出发，重新翻阅葑门横街的生活声景。</p>
+          <button class="text-entry" id="listenButton" type="button">进入葑门横街</button>
           <button class="triangle-entry" id="enterButton" type="button" aria-label="进入声音地图" hidden>
             <span aria-hidden="true"></span>
           </button>
-          <p class="timer-note" id="timerNote">听五秒，再进入</p>
+          <p class="timer-note" id="timerNote">地图抵达后进入</p>
         </div>
         <p class="start-index">Suzhou field notes / 2026</p>
       </section>
