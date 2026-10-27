@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f8f5eb" />
+    <meta name="description" content="从苏州葑门横街的田野录音出发，辨认并重新组合这条街的日常声音。" />
     <title>听见之间 · Between Sounds</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23302f2b'/%3E%3Cpath d='M16 7 26 24H6Z' fill='%23e3c27c'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css?v=mix-full-reach-20261027-3" />
   </head>
   <body>
     <main id="app">
       <section class="screen start-screen is-active" id="startScreen" aria-labelledby="startTitle">
         <div class="paper-grain" aria-hidden="true"></div>
-        <div class="start-map" aria-hidden="true"></div>
         <video class="start-map-video" id="startMapVideo" muted playsinline preload="auto" aria-hidden="true">
           <source src="assets/videos/start-map-animation.mp4" type="video/mp4" />
         </video>
@@ -57,37 +58,32 @@
           <section class="map-column" aria-label="葑门横街声音地图">
             <div class="map-meta">
               <p id="mapModeLabel">单独聆听</p>
-              <p>葑门横街田野录音 · 10 个声源</p>
+              <p>葑门横街<br />田野录音<br />10 个声源</p>
             </div>
             <div class="map-frame" id="mapFrame">
               <div class="map-sheet" id="mapSheet" aria-label="声音节点分布图"></div>
+              <!-- Traced from the original soundmap-mix-light.jpg, in its 820 x 547 map coordinates.
+                   Keep the west turn, east street and original north spur; no new itinerary. -->
+              <svg class="walk-route-layer" viewBox="0 0 820 547" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <defs>
+                  <path id="soundwalkGeometry" d="M 233 119 L 49 165 Q 45 166 47 172 L 95 317 Q 97 324 105 322 L 777 182 M 398 261 L 350 103 L 342 81" />
+                  <mask id="walk-clear-single" maskUnits="userSpaceOnUse" x="0" y="0" width="820" height="547"><rect width="820" height="547" fill="white" /><circle cx="159.654" cy="325.137" r="28" fill="black" /><circle cx="101.926" cy="87.137" r="28" fill="black" /><circle cx="516.272" cy="241.063" r="28" fill="black" /><circle cx="274.290" cy="213.713" r="28" fill="black" /><circle cx="704.380" cy="130.678" r="28" fill="black" /><circle cx="778.836" cy="107.376" r="28" fill="black" /><circle cx="531.934" cy="166.124" r="28" fill="black" /><circle cx="410.492" cy="274.539" r="28" fill="black" /><circle cx="447.720" cy="71.930" r="28" fill="black" /><circle cx="439.848" cy="172.196" r="28" fill="black" /></mask>
+                  <mask id="walk-clear-mix" maskUnits="userSpaceOnUse" x="0" y="0" width="820" height="547"><rect width="820" height="547" fill="white" /><circle cx="149.978" cy="319.010" r="28" fill="black" /><circle cx="95.038" cy="82.980" r="28" fill="black" /><circle cx="508.974" cy="235.976" r="28" fill="black" /><circle cx="268.960" cy="209.993" r="28" fill="black" /><circle cx="705.036" cy="127.013" r="28" fill="black" /><circle cx="778.016" cy="103.985" r="28" fill="black" /><circle cx="527.014" cy="163.006" r="28" fill="black" /><circle cx="404.014" cy="269.015" r="28" fill="black" /><circle cx="441.980" cy="70.016" r="28" fill="black" /><circle cx="435.010" cy="169.023" r="28" fill="black" /></mask>
+                </defs>
+                <g class="walk-route-single" mask="url(#walk-clear-single)"><g class="walk-source-relation" data-sound="call"><path class="walk-source-link" d="M 159.654 325.137 C 158.087 317.535 152.871 310.686 156.519 309.934" /><circle class="walk-route-anchor" cx="156.519" cy="309.934" r="1.7" /></g><g class="walk-source-relation" data-sound="pest"><path class="walk-source-link" d="M 101.926 87.137 C 109.644 117.679 131.904 144.546 117.361 148.221" /><circle class="walk-route-anchor" cx="117.361" cy="148.221" r="1.7" /></g><g class="walk-source-relation" data-sound="chestnut"><path class="walk-source-link" d="M 516.272 241.063 C 515.747 238.519 516.444 235.723 515.223 235.975" /><circle class="walk-route-anchor" cx="515.223" cy="235.975" r="1.7" /></g><g class="walk-source-relation" data-sound="cart"><path class="walk-source-link" d="M 274.290 213.713 C 281.404 248.215 273.827 285.747 288.518 282.718" /><circle class="walk-route-anchor" cx="288.518" cy="282.718" r="1.7" /></g><g class="walk-source-relation" data-sound="sweep"><path class="walk-source-link" d="M 704.380 130.678 C 710.936 162.474 702.801 197.299 717.492 194.270" /><circle class="walk-route-anchor" cx="717.492" cy="194.270" r="1.7" /></g><g class="walk-source-relation" data-sound="fitness"><path class="walk-source-link" d="M 778.836 107.376 C 777.918 144.688 791.691 178.971 777.000 182.000" /><circle class="walk-route-anchor" cx="777.000" cy="182.000" r="1.7" /></g><g class="walk-source-relation" data-sound="fry"><path class="walk-source-link" d="M 531.934 166.124 C 538.501 197.973 559.758 226.792 545.067 229.821" /><circle class="walk-route-anchor" cx="545.067" cy="229.821" r="1.7" /></g><g class="walk-source-relation" data-sound="meat"><path class="walk-source-link" d="M 410.492 274.539 C 408.814 266.400 411.042 257.455 407.136 258.261" /><circle class="walk-route-anchor" cx="407.136" cy="258.261" r="1.7" /></g><g class="walk-source-relation" data-sound="oxygen"><path class="walk-source-link" d="M 447.720 71.930 C 398.860 87.465 345.640 88.648 350.000 103.000" /><circle class="walk-route-anchor" cx="350.000" cy="103.000" r="1.7" /></g><g class="walk-source-relation" data-sound="salt"><path class="walk-source-link" d="M 439.848 172.196 C 408.342 181.767 372.477 176.986 376.837 191.338" /><circle class="walk-route-anchor" cx="376.837" cy="191.338" r="1.7" /></g><use class="walk-route-bed" href="#soundwalkGeometry" /><use class="walk-route-line" href="#soundwalkGeometry" /></g>
+                <g class="walk-route-mix" mask="url(#walk-clear-mix)"><g class="walk-source-relation" data-sound="call"><path class="walk-source-link" d="M 149.978 319.010 C 149.214 315.304 146.671 311.965 148.450 311.598" /><circle class="walk-route-anchor" cx="148.450" cy="311.598" r="1.7" /></g><g class="walk-source-relation" data-sound="pest"><path class="walk-source-link" d="M 95.038 82.980 C 103.456 116.294 97.331 153.282 111.874 149.607" /><circle class="walk-route-anchor" cx="111.874" cy="149.607" r="1.7" /></g><g class="walk-source-relation" data-sound="chestnut"><path class="walk-source-link" d="M 508.974 235.976 C 509.101 236.593 508.932 237.272 509.229 237.211" /><circle class="walk-route-anchor" cx="509.229" cy="237.211" r="1.7" /></g><g class="walk-source-relation" data-sound="cart"><path class="walk-source-link" d="M 268.960 209.993 C 276.550 246.807 269.450 286.650 284.141 283.620" /><circle class="walk-route-anchor" cx="284.141" cy="283.620" r="1.7" /></g><g class="walk-source-relation" data-sound="sweep"><path class="walk-source-link" d="M 705.036 127.013 C 711.941 160.502 733.537 190.962 718.846 193.991" /><circle class="walk-route-anchor" cx="718.846" cy="193.991" r="1.7" /></g><g class="walk-source-relation" data-sound="fitness"><path class="walk-source-link" d="M 778.016 103.985 C 777.508 142.992 791.691 178.971 777.000 182.000" /><circle class="walk-route-anchor" cx="777.000" cy="182.000" r="1.7" /></g><g class="walk-source-relation" data-sound="fry"><path class="walk-source-link" d="M 527.014 163.006 C 533.989 196.837 555.656 227.638 540.965 230.667" /><circle class="walk-route-anchor" cx="540.965" cy="230.667" r="1.7" /></g><g class="walk-source-relation" data-sound="meat"><path class="walk-source-link" d="M 404.014 269.015 C 403.014 264.166 399.687 259.797 402.014 259.317" /><circle class="walk-route-anchor" cx="402.014" cy="259.317" r="1.7" /></g><g class="walk-source-relation" data-sound="oxygen"><path class="walk-source-link" d="M 441.980 70.016 C 395.990 86.508 345.640 88.648 350.000 103.000" /><circle class="walk-route-anchor" cx="350.000" cy="103.000" r="1.7" /></g><g class="walk-source-relation" data-sound="salt"><path class="walk-source-link" d="M 435.010 169.023 C 405.278 178.056 371.210 172.817 375.546 187.088" /><circle class="walk-route-anchor" cx="375.546" cy="187.088" r="1.7" /></g><use class="walk-route-bed" href="#soundwalkGeometry" /><use class="walk-route-line" href="#soundwalkGeometry" /></g>
+              </svg>
+              <svg class="reach-layer mix-reach-layer" id="mixReachLayer" viewBox="0 0 150 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+              <svg class="reach-layer" id="reachLayer" viewBox="0 0 150 100" preserveAspectRatio="none" aria-hidden="true"></svg>
               <div class="node-layer" id="nodeLayer"></div>
-              <p class="map-guide" id="mapGuide">点击地图上的发光节点，听见一段声音。</p>
+              <div class="moment-layer" id="momentLayer"></div>
+              <p class="map-guide" id="mapGuide">点击地图上的图形，听见一段声音。</p>
+              <p class="sr-only" id="singleStatus" aria-live="polite"></p>
             </div>
           </section>
 
           <aside class="notes-column" id="notesColumn">
-            <section class="single-panel" id="singlePanel">
-              <div class="panel-heading">
-                <span>田野手账</span>
-                <span id="entryNumber">Field note —</span>
-              </div>
-              <article class="field-note" id="fieldNote">
-                <div class="field-placeholder" id="fieldIllustration" aria-hidden="true">
-                  <span>选择一处声音</span>
-                </div>
-                <div class="field-copy">
-                  <p class="field-category" id="fieldCategory">尚未选择节点</p>
-                  <h2 id="fieldTitle">翻开它的田野记录</h2>
-                  <p id="fieldText">选择一处声音，翻开它的田野记录。</p>
-                </div>
-              </article>
-              <div class="playback-line" id="singleStatus" aria-live="polite">
-                <span></span><p>等待聆听</p>
-              </div>
-            </section>
-
-            <section class="mix-panel" id="mixPanel" hidden>
+            <section class="mix-panel" id="mixPanel">
               <div class="panel-heading">
                 <span>自由混音</span>
                 <span>Live layers</span>
@@ -109,22 +105,22 @@
           <button id="backToMap" type="button">返回 Mix</button>
         </header>
         <div class="result-layout">
-          <section class="postcard" aria-label="个人声音地图展示区域">
-            <div class="postcard-map" id="postcardMap"></div>
-            <div class="postcard-title"><span>葑门横街</span><strong id="resultTitle">我的声音地图</strong></div>
-            <p>[待确认：个人 Soundmap 视觉生成规则]</p>
+          <section class="postcard" aria-label="个人声音地图明信片">
+            <img class="postcard-art" src="assets/interface/personal-soundmap-postcard.png" alt="我的声音地图：葑门横街的手绘地图明信片" />
+            <h2 class="sr-only" id="resultTitle">我的声音地图</h2>
+            <div class="postcard-map" id="postcardMap" hidden></div>
           </section>
           <aside class="result-notes">
             <p class="result-date" id="resultDate"></p>
             <h2>这一次，<br />你听见了什么？</h2>
             <div class="result-list" id="resultList"></div>
             <section class="result-placeholder">
-              <h3>个人混音回放</h3>
-              <p>[待实现：最终混音回放]</p>
+              <h3><button class="result-action" id="resultPlayback" type="button" aria-pressed="false" disabled>个人混音回放</button></h3>
+              <p id="resultPlaybackStatus" aria-live="polite">尚未选择声音</p>
             </section>
             <section class="result-placeholder">
-              <h3>保存这张声音明信片</h3>
-              <p>[待实现：混音音频导出与下载]</p>
+              <h3><button class="result-action" id="savePostcard" type="button">保存这张声音明信片</button></h3>
+              <p id="postcardSaveStatus" aria-live="polite">下载 PNG 图片</p>
             </section>
           </aside>
         </div>
@@ -134,6 +130,6 @@
       <span class="listen-cursor__ring"></span>
       <span class="listen-cursor__label">listen</span>
     </div>
-    <script src="app.js"></script>
+    <script src="app.js?v=mix-full-reach-20261027-3"></script>
   </body>
 </html>

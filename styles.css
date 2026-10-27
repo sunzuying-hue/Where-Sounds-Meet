@@ -21,12 +21,13 @@ button:active { opacity:.72; }
 
 /* Desktop listening cursor. System cursor remains the fallback for touch and reduced motion. */
 .listen-cursor { display:none; position:fixed; z-index:1000; left:0; top:0; width:34px; height:46px; pointer-events:none; opacity:0; transform:translate3d(-100px,-100px,0); transition:opacity .16s ease; will-change:transform; }
-.listen-cursor__ring { position:absolute; left:8px; top:3px; width:18px; height:18px; border:1px solid rgba(48,47,43,.72); border-radius:50%; }
+.listen-cursor__ring { position:absolute; left:8px; top:3px; width:18px; height:18px; border:1px solid rgba(48,47,43,.72); border-radius:50%; transition:transform .25s var(--ease); }
 .listen-cursor__label { position:absolute; left:50%; top:27px; transform:translateX(-50%); color:rgba(64,58,51,.58); font:10px/1 Arial,sans-serif; letter-spacing:.02em; white-space:nowrap; }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   body.custom-cursor-enabled, body.custom-cursor-enabled * { cursor:none !important; }
   .listen-cursor { display:block; }
   .listen-cursor.is-visible { opacity:1; }
+  body:has(.sound-node:hover) .listen-cursor__ring { transform:scale(1.35); }
 }
 
 .screen { position: fixed; inset: 0; opacity: 0; pointer-events: none; transition: opacity .7s var(--ease); }
@@ -38,16 +39,6 @@ button:active { opacity:.72; }
 
 /* Start */
 .start-screen { background: var(--paper); overflow: hidden; }
-.start-map {
-  position:absolute;
-  inset:0 0 0 40%;
-  z-index:0;
-  background:url('assets/interface/start-map.png') center/cover no-repeat;
-  filter:sepia(.12) saturate(.76) contrast(.9);
-  opacity:.68;
-  -webkit-mask-image:none;
-  mask-image:none;
-}
 .start-map-video {
   position:absolute;
   inset:0;
@@ -73,8 +64,7 @@ button:active { opacity:.72; }
 .timer-note { display:inline-block; margin:0 0 0 18px; vertical-align:22px; font:12px Arial,sans-serif; opacity:.55; }
 .start-index { position:absolute; z-index:2; left:42px; bottom:30px; margin:0; font:11px Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
 .transition-screen { position:fixed; inset:0; z-index:20; display:grid; place-items:center; background:var(--paper); }
-.transition-screen p { font-size:26px; letter-spacing:.05em; animation:message-in .5s var(--ease) both; }
-.scatter-char { display:inline-block; white-space:pre; will-change:transform,opacity,filter; }
+.transition-screen p { font-size:26px; letter-spacing:.05em; }
 
 /* Workspace */
 .soundmap-screen { background:var(--paper); }
@@ -100,55 +90,36 @@ button:active { opacity:.72; }
 .soundmap-screen[data-mode="mix"] .map-column { background:#eeeadf; color:var(--ink); }
 .map-meta { position:absolute; left:24px; top:26px; bottom:28px; width:76px; display:flex; flex-direction:column; justify-content:space-between; font:10px/1.7 Arial,sans-serif; letter-spacing:.08em; opacity:.72; }
 .map-meta p { margin:0; }
-.map-frame { height:100%; margin-left:76px; position:relative; overflow:hidden; }
-.map-sheet,.node-layer { position:absolute; width:100%; height:auto; max-height:100%; left:50%; top:50%; transform:translate(-50%,-50%); }
+/* The frame is a size container so the map keeps its 3:2 ratio at any viewport; nodes are placed in the same box. */
+.map-frame { height:100%; margin-left:76px; position:relative; overflow:hidden; container-type:size; --map-width:min(100cqw,150cqh); }
+.map-sheet,.reach-layer,.node-layer { position:absolute; width:var(--map-width); aspect-ratio:3/2; left:50%; top:50%; transform:translate(-50%,-50%); }
 .map-sheet { z-index:1; background-position:center; background-repeat:no-repeat; background-size:cover; }
-.node-layer { z-index:2; }
-.map-sheet,.node-layer { aspect-ratio:3/2; }
-.soundmap-screen[data-mode="single"] .map-sheet { background-image:url('assets/interface/soundmap-single-replacement.png'); }
-.soundmap-screen[data-mode="mix"] .map-sheet { background-image:url('assets/interface/soundmap-mix-light.jpg'); }
-.sound-node { position:absolute; width:44px; height:44px; border:0; background:transparent; transform:translate(-50%,-50%); cursor:pointer; display:grid; place-items:center; isolation:isolate; }
+.node-layer { z-index:3; }
+.soundmap-screen[data-mode="single"] .map-sheet { background-image:url('assets/interface/soundmap-clean-single.png'); }
+.soundmap-screen[data-mode="mix"] .map-sheet { background-image:url('assets/interface/soundmap-clean-mix.png'); }
+.sound-node { position:absolute; width:max(44px,calc(var(--map-width) * .06)); height:max(44px,calc(var(--map-width) * .06)); border:0; background:transparent; transform:translate(-50%,-50%); cursor:pointer; display:grid; place-items:center; isolation:isolate; }
 .sound-node:focus-visible { outline:2px solid var(--paper); outline-offset:3px; border-radius:50%; }
 .node-ripple { position:absolute; z-index:0; left:50%; top:50%; width:18px; height:18px; margin:-9px 0 0 -9px; border:1.25px solid color-mix(in srgb,var(--node-color) 80%,var(--paper)); border-radius:50%; opacity:0; pointer-events:none; filter:blur(.2px); }
-.sound-node.is-single-playing .node-ripple { animation:single-ripple 2.7s var(--ease) infinite; }
-.sound-node.is-single-playing .node-ripple:nth-child(2) { animation-delay:.9s; }
-.sound-node.is-single-playing .node-ripple:nth-child(3) { animation-delay:1.8s; }
-.map-guide { position:absolute; z-index:3; left:12px; bottom:10px; margin:0; max-width:260px; color:var(--paper-deep); font-size:14px; line-height:1.7; background:rgba(48,47,43,.82); padding:10px 13px; }
-.soundmap-screen[data-mode="mix"] .map-guide { background:rgba(248,245,235,.82); }
+.sound-node.is-single-playing .node-ripple,
+.soundmap-screen[data-mode="mix"] .sound-node.is-playing .node-ripple { animation:single-ripple 2.7s var(--ease) infinite; }
+.sound-node.is-single-playing .node-ripple:nth-child(2),
+.soundmap-screen[data-mode="mix"] .sound-node.is-playing .node-ripple:nth-child(2) { animation-delay:.9s; }
+.sound-node.is-single-playing .node-ripple:nth-child(3),
+.soundmap-screen[data-mode="mix"] .sound-node.is-playing .node-ripple:nth-child(3) { animation-delay:1.8s; }
+.map-guide { position:absolute; z-index:5; left:12px; bottom:10px; margin:0; max-width:300px; color:var(--paper-deep); font-size:14px; line-height:1.7; background:rgba(48,47,43,.82); padding:10px 13px; }
+.soundmap-screen[data-mode="mix"] .map-guide { background:rgba(248,245,235,.82); color:var(--ink); }
 .notes-column { background:var(--paper); padding:31px 34px 34px; overflow:hidden; transition:background .6s var(--ease),color .6s var(--ease); }
 
 /* Single uses one continuous dark field; Mix retains the original paper palette. */
 .soundmap-screen[data-mode="single"] { background:var(--map-dark); color:var(--paper-deep); }
 .soundmap-screen[data-mode="single"] .topbar { background:var(--map-dark); color:var(--paper-deep); }
 .soundmap-screen[data-mode="single"] .mode-button::after { background:var(--paper-deep); }
-.soundmap-screen[data-mode="single"] .notes-column { background:#353430; color:var(--paper-deep); }
-.soundmap-screen[data-mode="single"] .field-placeholder { background:#3c3a35; color:rgba(232,226,214,.62); }
-.soundmap-screen[data-mode="single"] .field-placeholder::before,
-.soundmap-screen[data-mode="single"] .field-placeholder::after { border-color:rgba(232,226,214,.14); }
-.soundmap-screen[data-mode="single"] .field-placeholder span { background:rgba(48,47,43,.82); }
-.soundmap-screen[data-mode="single"] .field-category { color:var(--paper-deep) !important; }
-.soundmap-screen[data-mode="single"] .playback-line span { background:var(--paper-deep); }
 .soundmap-screen[data-mode="single"]::after { opacity:.14; mix-blend-mode:soft-light; }
 body:has(.soundmap-screen[data-mode="single"].is-active) .listen-cursor__ring { border-color:rgba(232,226,214,.72); }
 body:has(.soundmap-screen[data-mode="single"].is-active) .listen-cursor__label { color:rgba(232,226,214,.68); }
 .panel-heading { display:flex; justify-content:space-between; align-items:center; font:11px Arial,sans-serif; text-transform:uppercase; letter-spacing:.13em; }
 .panel-heading span:last-child { opacity:.5; }
-.single-panel,.mix-panel { height:100%; }
-.field-note { height:calc(100% - 70px); display:grid; grid-template-rows:minmax(260px,58%) 1fr; align-content:start; padding-top:30px; }
-.field-placeholder { position:relative; overflow:hidden; display:grid; place-items:center; background:#eee9dc; color:rgba(64,58,51,.48); font-size:14px; }
-.field-placeholder::before,.field-placeholder::after { content:""; position:absolute; width:60%; height:60%; border:1px solid rgba(64,58,51,.13); border-radius:55% 45% 60% 35%; transform:rotate(14deg); }
-.field-placeholder::after { width:35%; height:70%; transform:rotate(-23deg); }
-.field-placeholder span { position:relative; z-index:1; padding:10px 14px; background:rgba(248,245,235,.75); }
-.field-placeholder.has-media::before,.field-placeholder.has-media::after { display:none; }
-.field-placeholder img,.field-placeholder video { display:block; width:100%; height:100%; object-fit:contain; }
-.field-copy { padding:26px 0 0; }
-.field-copy.is-entering { animation:copy-in .3s var(--ease) both; }
-.field-category { margin:0 0 10px; font:11px Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--note-color,var(--ink)); }
-.field-copy h2 { margin:0; font-weight:400; font-size:38px; line-height:1.1; letter-spacing:-.04em; }
-.field-copy>p:last-child { margin:18px 0 0; font-size:15px; line-height:1.8; }
-.playback-line { height:40px; display:flex; gap:12px; align-items:center; font:12px Arial,sans-serif; }
-.playback-line span { width:28px; height:2px; background:var(--ink); opacity:.35; }
-.playback-line p { margin:0; opacity:.65; }
+.mix-panel { height:100%; }
 .mix-panel { overflow:auto; padding-right:4px; scrollbar-width:thin; }
 .mix-intro { padding:34px 0 22px; }
 .mix-intro h2 { font-size:34px; font-weight:400; letter-spacing:-.04em; margin:0 0 10px; }
@@ -160,7 +131,62 @@ body:has(.soundmap-screen[data-mode="single"].is-active) .listen-cursor__label {
 .volume { appearance:none; width:100%; height:24px; background:transparent; cursor:pointer; }
 .volume::-webkit-slider-runnable-track { height:2px; background:rgba(64,58,51,.25); }
 .volume::-webkit-slider-thumb { appearance:none; width:13px; height:13px; margin-top:-5px; border-radius:50%; background:var(--row-color); }
+.volume::-moz-range-track { height:2px; background:rgba(64,58,51,.25); }
+.volume::-moz-range-thumb { width:13px; height:13px; border:0; border-radius:50%; background:var(--row-color); }
 .result-entry { width:100%; margin-top:18px; border:0; background:var(--ink); color:var(--paper); padding:16px 18px; display:flex; justify-content:space-between; cursor:pointer; }
+
+/* Single: the map is the whole stage. A listened sound draws its reach on the map and its record surfaces beside it. */
+.soundmap-screen[data-mode="single"] .workspace { grid-template-columns:1fr; }
+.soundmap-screen[data-mode="single"] :is(.notes-column,.map-meta) { display:none; }
+.soundmap-screen[data-mode="single"] .map-column { padding:0; }
+.soundmap-screen[data-mode="single"] .map-frame { margin-left:0; --map-width:var(--fit-w,min(100cqw,150cqh)); }
+.soundmap-screen[data-mode="single"] :is(.map-sheet,.reach-layer,.node-layer) { width:var(--map-width); left:var(--fit-x,0px); top:var(--fit-y,0px); transform:none; }
+.soundmap-screen[data-mode="single"] .map-guide { left:32px; bottom:26px; padding:0; background:none; text-shadow:0 0 12px var(--map-dark),0 0 3px var(--map-dark); transition:opacity .5s var(--ease); }
+.soundmap-screen.has-moment .map-guide { opacity:0; }
+.soundmap-screen[data-mode="mix"] :is(#reachLayer,.moment-layer) { display:none; }
+.reach-layer { z-index:2; overflow:visible; pointer-events:none; }
+.reach-field { fill:var(--reach-color); fill-opacity:.15; transition:fill-opacity 1.2s var(--ease); }
+.reach-line { fill:none; stroke:var(--reach-color); stroke-width:.13; stroke-opacity:.75; stroke-dasharray:1; transition:stroke-opacity 1.2s var(--ease); }
+.reach-line--inner { stroke-opacity:.4; }
+.reach.is-quiet .reach-field { fill-opacity:.06; }
+.reach.is-quiet .reach-line { stroke-opacity:.3; }
+.reach.is-moving { transform-box:fill-box; transform-origin:center; animation:reach-drift 6s ease-in-out infinite alternate; }
+.moment-layer { position:absolute; inset:0; z-index:4; pointer-events:none; }
+.moment { position:absolute; width:max-content; display:flex; gap:24px; align-items:flex-start; color:var(--paper-deep); }
+.moment[data-flow="column"] { flex-direction:column; gap:18px; }
+.moment[data-flow="row"][data-reverse] { flex-direction:row-reverse; }
+.moment[data-flow="column"][data-reverse] { flex-direction:column-reverse; }
+/* Compact: image and heading side by side, the field text running underneath — like one page of the notebook. */
+.moment[data-flow="grid"] { display:grid; grid-template-columns:var(--media-w) var(--head-w); grid-template-areas:"media head" "note note" "status status"; gap:0 20px; }
+.moment[data-flow="grid"][data-reverse] { grid-template-columns:var(--head-w) var(--media-w); grid-template-areas:"head media" "note note" "status status"; }
+.moment[data-flow="grid"] .moment-copy { display:contents; }
+.moment[data-flow="grid"] .moment-media { grid-area:media; }
+.moment[data-flow="grid"] .moment-head { grid-area:head; align-self:end; }
+.moment[data-flow="grid"] .moment-note { grid-area:note; }
+.moment[data-flow="grid"] .moment-status { grid-area:status; }
+/* Strip: everything in one low band, for the open space along the river. */
+.moment[data-flow="strip"] { display:grid; grid-template-columns:var(--media-w) var(--head-w) var(--copy-w); grid-template-areas:"media head note" "media head status"; grid-template-rows:auto 1fr; gap:0 22px; }
+.moment[data-flow="strip"] .moment-copy { display:contents; }
+.moment[data-flow="strip"] .moment-media { grid-area:media; }
+.moment[data-flow="strip"] .moment-head { grid-area:head; }
+.moment[data-flow="strip"] .moment-note { grid-area:note; margin-top:4px; }
+.moment[data-flow="strip"] .moment-status { grid-area:status; }
+.moment-media { position:relative; flex:none; width:var(--media-w); height:var(--media-h); margin:0; }
+.moment-image { position:absolute; inset:0; background:color-mix(in srgb,var(--moment-color) 18%,var(--paper)); }
+.moment-image :is(video,img) { display:block; width:100%; height:100%; object-fit:cover; }
+.moment-outline { position:absolute; inset:0; width:100%; height:100%; overflow:visible; fill:none; stroke:var(--paper-deep); stroke-opacity:.6; stroke-width:1; stroke-dasharray:1; }
+.moment-link { position:absolute; overflow:visible; fill:none; stroke:var(--moment-color); stroke-opacity:.8; stroke-width:1.25; stroke-linecap:round; stroke-dasharray:1; }
+.moment-copy { flex:none; width:var(--copy-w); text-shadow:0 0 14px var(--map-dark),0 0 4px var(--map-dark); }
+.moment-title { margin:0; word-break:keep-all; font-size:clamp(32px,2.7vw,46px); font-weight:400; line-height:1.08; letter-spacing:-.04em; }
+.moment-meta { margin:14px 0 0; display:grid; gap:2px; font:12px/1.6 Arial,sans-serif; letter-spacing:.04em; }
+.moment-meta div { display:grid; grid-template-columns:3.2em 1fr; }
+.moment-meta dt { opacity:.55; }
+.moment-meta dd { margin:0; }
+.moment-note { margin:14px 0 0; font-size:14px; line-height:1.8; }
+.moment-status { margin:12px 0 0; display:flex; align-items:center; gap:10px; font:11px Arial,sans-serif; letter-spacing:.06em; opacity:.72; }
+.moment-status::before { content:""; width:24px; height:1px; background:var(--moment-color); }
+@media (max-height:760px) { .moment-title { font-size:30px; } .moment-note { font-size:13px; line-height:1.75; } }
+.sr-only { position:absolute; width:1px; height:1px; margin:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 
 /* Result */
 .result-screen { background:var(--paper); z-index:12; padding:27px 36px 32px; }
@@ -186,8 +212,62 @@ body:has(.soundmap-screen[data-mode="single"].is-active) .listen-cursor__label {
 .result-placeholder p { margin:0; font-size:12px; opacity:.58; }
 
 @keyframes soft-in { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
-@keyframes message-in { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-@keyframes copy-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+@keyframes reach-drift { from{transform:translate(-1.5px,.3px) rotate(-3deg)} to{transform:translate(1.5px,-.3px) rotate(3deg)} }
 @keyframes single-ripple { 0%{opacity:.72;transform:scale(1)} 70%{opacity:.18} 100%{opacity:0;transform:scale(7.2)} }
 @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important} }
-@media (min-width:1800px){ .topbar{height:98px;padding-inline:52px}.workspace{height:calc(100vh - 98px)}.map-column{padding:38px 50px}.notes-column{padding:40px 66px}.field-note{grid-template-rows:minmax(320px,60%) 1fr}.field-copy h2{font-size:46px}.mixer-row{min-height:58px} }
+@media (min-width:1800px){ .topbar{height:98px;padding-inline:52px}.workspace{height:calc(100vh - 98px)}.map-column{padding:38px 50px}.notes-column{padding:40px 66px}.mixer-row{min-height:58px} }
+
+/* Local merge: preserve Single node click targets above surfaced records. */
+.soundmap-screen[data-mode="single"] .node-layer { z-index:5; pointer-events:none; }
+.soundmap-screen[data-mode="single"] .sound-node { pointer-events:auto; }
+
+/* Shared hand-drawn sound icons; node dimensions and map coordinates stay unchanged. */
+.sound-node .sound-icon { display:block; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:clamp(32px,calc(var(--map-width) * .045),64px); height:clamp(32px,calc(var(--map-width) * .045),64px); object-fit:contain; z-index:1; pointer-events:none; user-select:none; transition:filter .35s ease; }
+.sound-node.is-playing .sound-icon { filter:brightness(1.08) drop-shadow(0 0 3px color-mix(in srgb,var(--node-color) 35%,transparent)); }
+
+/* Original Soundwalk itinerary, drawn beneath the independent sound icons. */
+.walk-route-layer { position:absolute; z-index:2; pointer-events:none; width:var(--map-width); aspect-ratio:3/2; left:50%; top:50%; transform:translate(-50%,-50%); overflow:hidden; }
+.walk-route-line { fill:none; stroke:var(--walk-color); stroke-width:2px; stroke-opacity:.8; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1 5; vector-effect:non-scaling-stroke; }
+.walk-route-single { display:none; }
+.soundmap-screen[data-mode="single"] .walk-route-layer { left:var(--fit-x,0px); top:var(--fit-y,0px); transform:none; }
+.soundmap-screen[data-mode="single"] .walk-route-single { display:inline; }
+.soundmap-screen[data-mode="single"] .walk-route-mix { display:none; }
+
+
+/* Same recorded walk, with quieter source-to-walk relations rather than new walking branches. */
+.walk-route-layer { --walk-color:#8e765c; }
+.soundmap-screen[data-mode="single"] .walk-route-layer { --walk-color:#cfb994; }
+.walk-route-bed { fill:none; stroke:var(--walk-color); stroke-width:1px; stroke-opacity:.17; vector-effect:non-scaling-stroke; stroke-linecap:round; stroke-linejoin:round; }
+.walk-source-link { fill:none; stroke:var(--walk-color); stroke-width:1px; stroke-opacity:var(--source-trace-opacity,.42); stroke-dasharray:1 3; stroke-linecap:round; vector-effect:non-scaling-stroke; transition:stroke-opacity .4s ease; }
+.walk-route-anchor { fill:var(--walk-color); fill-opacity:var(--source-anchor-opacity,.62); }
+.postcard { padding:0; background:transparent; display:flex; align-items:center; justify-content:center; }
+.postcard-art { display:block; width:100%; height:100%; object-fit:contain; }
+.soundmap-screen:has(.sound-node[data-id="call"].is-playing) .walk-source-relation[data-sound="call"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="pest"].is-playing) .walk-source-relation[data-sound="pest"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="chestnut"].is-playing) .walk-source-relation[data-sound="chestnut"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="cart"].is-playing) .walk-source-relation[data-sound="cart"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="sweep"].is-playing) .walk-source-relation[data-sound="sweep"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="fitness"].is-playing) .walk-source-relation[data-sound="fitness"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="fry"].is-playing) .walk-source-relation[data-sound="fry"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="meat"].is-playing) .walk-source-relation[data-sound="meat"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="oxygen"].is-playing) .walk-source-relation[data-sound="oxygen"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+.soundmap-screen:has(.sound-node[data-id="salt"].is-playing) .walk-source-relation[data-sound="salt"] { --source-trace-opacity:.85; --source-anchor-opacity:1; }
+
+/* Result actions keep the original heading typography and spacing. */
+.result-action { font:inherit; color:inherit; text-align:left; padding:0; border:0; background:none; cursor:pointer; }
+.result-action:hover:not(:disabled) { text-decoration:underline; text-underline-offset:4px; }
+.result-action:disabled { cursor:default; opacity:.5; }
+
+/* Mix shares Single's ripple timing and geometry; crisp rings on the light map. */
+.soundmap-screen[data-mode="mix"] .node-ripple {
+  border-color:color-mix(in srgb,var(--node-color) 65%,#655b4c);
+  border-radius:50%;
+  background:transparent;
+  box-shadow:none;
+  filter:none;
+  transform-origin:center;
+}
+.soundmap-screen[data-mode="mix"] .sound-node.is-playing .sound-icon {
+  filter:brightness(1.08);
+}
+.soundmap-screen[data-mode="single"] .mix-reach-layer { display:none; }
